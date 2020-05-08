@@ -7,6 +7,11 @@ import Container from 'react-bootstrap/Container';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import 'bootstrap/dist/css/bootstrap.min.css';
+// Firebase App (the core Firebase SDK) is always required and must be listed first
+import * as firebase from "firebase/app";
+
+// Add the Firebase products that you want to use
+import "firebase/analytics";
 
 function ProblemNum(props: any) {
     // const url = "https://chart.apis.google.com/chart?cht=tx&chl=(" + props.num + ")&chs=30"
@@ -172,10 +177,12 @@ class App extends React.Component<any, any> {
     }
 
     toggleAnswer() {
+        firebase.analytics().logEvent('toggleAnswer');
         this.setState({showAnswer: !this.state.showAnswer})
     }
 
     toggleWhiteBoard() {
+        firebase.analytics().logEvent('toggleWhiteBoard');
         this.setState({showWhiteBoard: !this.state.showWhiteBoard})
     }
 
@@ -193,5 +200,15 @@ class App extends React.Component<any, any> {
         );
     }
 }
-
+const firebaseConfig = {
+    apiKey: "AIzaSyBxgSuF8mQzUPxEw6XgJGez638hV3yVnFQ",
+    authDomain: "learning-platform-276600.firebaseapp.com",
+    databaseURL: "https://learning-platform-276600.firebaseio.com",
+    projectId: "learning-platform-276600",
+    storageBucket: "learning-platform-276600.appspot.com",
+    messagingSenderId: "760877950219",
+    appId: "1:760877950219:web:932fbd2c81781343796e0e",
+    measurementId: "G-M56M78BJ4R"
+};
+firebase.initializeApp(firebaseConfig);
 export default App;
