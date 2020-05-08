@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Program, ProgramGenerator} from "./program-generator";
 import {WhiteBoardEventHandler} from "./whiteboard";
@@ -64,39 +63,28 @@ class WhiteBoard extends React.Component {
     }
 }
 
-class ControlButtons extends React.Component<any, any> {
-    onClickButton: any
-
-    constructor(props: any) {
-        super(props);
-        this.onClickButton = props.onClickButton
+function ControlButtons(props: any) {
+    var anstext = "show all answers"
+    if (props.state.showAnswer) {
+        anstext = "hide all answers"
+    }
+    var whiteboardtext = "disable whiteboards"
+    if (!props.state.showWhiteBoard) {
+        whiteboardtext = "enable whiteboards"
     }
 
-
-    render() {
-        if (this.props.state.showAnswer) {
-            return (
-                <Container>
-                    <Row>
-                        <Col sm={1}>
-                            <Button onClick={this.onClickButton}>hide all answers</Button>
-                        </Col>
-                    </Row>
-                </Container>
-            )
-
-        } else {
-            return (
-                <Container>
-                    <Row>
-                        <Col sm={1}>
-                            <Button onClick={this.onClickButton}>show all answers</Button>
-                        </Col>
-                    </Row>
-                </Container>
-            )
-        }
-    }
+    return (
+        <Container>
+            <Row>
+                <Col sm={2}>
+                    <Button onClick={props.toggleAnswer}>{anstext}</Button>
+                </Col>
+                <Col sm={2}>
+                    <Button onClick={props.toggleWhiteBoard}>{whiteboardtext}</Button>
+                </Col>
+            </Row>
+        </Container>
+    )
 }
 
 function SelfCheckButtons(props: any) {
@@ -118,45 +106,34 @@ class ProblemLine extends React.Component<any, any> {
     }
 
     render() {
-        if (this.props.state.showAnswer) {
-            return (
+        return (
+            <Row>
                 <Row>
-                    <Row>
-                        <Col>
-                            <ProblemNum num={this.props.num}/>
-                        </Col>
-                    </Row>
-                    <Col lg={2}>
-                        <Question mathtext={this.props.mathtext} question={this.props.question}/>
-                    </Col>
-                    <Col lg={5}>
-                        <WhiteBoard/>
-                    </Col>
-                    <Col lg={4}>
-                        <Answer answer={this.props.answer}/>
-                    </Col>
-                    <Col lg={1}>
-                        <SelfCheckButtons/>
+                    <Col>
+                        <ProblemNum num={this.props.num}/>
                     </Col>
                 </Row>
-            )
-        } else {
-            return (
-                <Row>
-                    <Row>
-                        <Col>
-                            <ProblemNum num={this.props.num}/>
-                        </Col>
-                    </Row>
-                    <Col lg={2}>
-                        <Question mathtext={this.props.mathtext} question={this.props.question}/>
-                    </Col>
-                    <Col lg={5}>
-                        <WhiteBoard/>
-                    </Col>
-                </Row>
-            )
-        }
+                <Col lg={2}>
+                    <Question mathtext={this.props.mathtext} question={this.props.question}/>
+                </Col>
+                {this.props.state.showWhiteBoard &&
+                <Col lg={5}>
+                    <WhiteBoard/>
+                </Col>
+                }
+                {this.props.state.showAnswer &&
+                <Col lg={4}>
+                    <Answer answer={this.props.answer}/>
+                </Col>
+                }
+                {this.props.state.showAnswer &&
+                <Col lg={1}>
+                    <SelfCheckButtons/>
+                </Col>
+                }
+            </Row>
+        )
+
     }
 }
 
@@ -167,7 +144,7 @@ class ProblemTable extends React.Component<any, any> {
     }
 
     render() {
-        var compiledlines = this.props.state.programs.map((problem:Program,
+        var compiledlines = this.props.state.programs.map((problem: Program,
                                                            index: number) =>
             <ProblemLine num={index + 1}
                          mathtext={problem.mathtext}
@@ -189,20 +166,29 @@ class App extends React.Component<any, any> {
         super(props);
         this.state = {
             showAnswer: false,
+            showWhiteBoard: true,
             programs: ProgramGenerator.generate()
         }
     }
 
-    onClickButton() {
+    toggleAnswer() {
         this.setState({showAnswer: !this.state.showAnswer})
-        console.log("App", "onClickButton", this.state)
+    }
+
+    toggleWhiteBoard() {
+        this.setState({showWhiteBoard: !this.state.showWhiteBoard})
     }
 
     render() {
         return (
             <div className="App">
-                <ControlButtons state={this.state} onClickButton={this.onClickButton.bind(this)}/>
+                <ControlButtons state={this.state}
+                                toggleAnswer={this.toggleAnswer.bind(this)}
+                                toggleWhiteBoard={this.toggleWhiteBoard.bind(this)}/>
                 <ProblemTable state={this.state}/>
+                <ControlButtons state={this.state}
+                                toggleAnswer={this.toggleAnswer.bind(this)}
+                                toggleWhiteBoard={this.toggleWhiteBoard.bind(this)}/>
             </div>
         );
     }
