@@ -39,17 +39,10 @@ class WhiteBoardEventHandler {
     }
 
     onTouchStart(event: any) {
-        console.log("Start onTouchStart====")
         this.mf = true;
         var target = this.getAbsolutePosition(event.target)
         this.ox = event.touches[0].pageX - target.left;
         this.oy = event.touches[0].pageY - target.top;
-        console.log("target.left" + target.left)
-        console.log("target.top" + target.top)
-        console.log("event.touches[0].pageX" + event.touches[0].pageX)
-        console.log("event.touches[0].pageY" + event.touches[0].pageY)
-        console.log("event.target.getBoundingClientRect().top" + event.target.getBoundingClientRect().top)
-        console.log("event.target.getBoundingClientRect().left" + event.target.getBoundingClientRect().left)
         event.preventDefault();
         event.stopPropagation();
         return false;
@@ -70,11 +63,6 @@ class WhiteBoardEventHandler {
     }
 
     onTouchEnd(event: any) {
-        console.log("Start onTouchEnd====")
-        // console.log("event.touches[0].pageX" + event.touches[0].pageX)
-        // console.log("event.touches[0].pageY" + event.touches[0].pageY)
-        console.log("event.target.getBoundingClientRect().top" + event.target.getBoundingClientRect().top)
-        console.log("event.target.getBoundingClientRect().left" + event.target.getBoundingClientRect().left)
         this.mf = false;
         event.preventDefault();
         event.stopPropagation();
@@ -82,14 +70,12 @@ class WhiteBoardEventHandler {
     }
 
     onMouseDown(event: any) {
-        console.log("Start onMouseDown====")
         this.ox = event.clientX - event.target.getBoundingClientRect().left;
         this.oy = event.clientY - event.target.getBoundingClientRect().top;
         this.mf = true;
     }
 
     onMouseMove(event: any) {
-        console.log("Start onMouseMove====")
         if (this.mf) {
             this.x = event.clientX - event.target.getBoundingClientRect().left;
             this.y = event.clientY - event.target.getBoundingClientRect().top;
@@ -100,7 +86,6 @@ class WhiteBoardEventHandler {
     }
 
     onMouseUp(event: any) {
-        console.log("Start onMouseUp====")
         this.mf = false;
     }
 

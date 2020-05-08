@@ -12,19 +12,12 @@ code {
     monospace;
 }
 
-pre{
-  margin-right: 3em;
-}
-
 .problemnum{
-  padding-right: 2em;
+  margin-left: 1em;
+  text-align: left;
+  background-color: #cccccc;
 }
-table {
-  width: 100%;
-}
-td{
-  /*border:solid 1px;*/
-  display: table-cell;
+.question{
   text-align: left;
 }
 .canvas{
