@@ -8,6 +8,8 @@ function reducer(state: any, action: any): any {
         return {...state, showAnswer: !state.showAnswer}
     } else if (action.type === "TOGGLE_WHITEBOARD") {
         return {...state, showWhiteBoard: !state.showWhiteBoard}
+    } else if (action.type === "TOGGLE_LEFTY") {
+        return {...state, isLefty: !state.isLefty}
     } else if (action.type === "CREATE_NEW_PROBLEMS") {
         return {...state, programs: ProgramGenerator.generate()}
     }

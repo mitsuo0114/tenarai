@@ -71,6 +71,7 @@ class WhiteBoard extends React.Component {
 function ControlButtons() {
     const showAnswer = useSelector((state: any) => state.showAnswer)
     const showWhiteBoard = useSelector((state: any) => state.showWhiteBoard)
+    const isLefty = useSelector((state: any) => state.isLefty)
 
     var anstext = "show all answers"
     if (showAnswer) {
@@ -79,6 +80,10 @@ function ControlButtons() {
     var whiteboardtext = "disable whiteboards"
     if (!showWhiteBoard) {
         whiteboardtext = "enable whiteboards"
+    }
+    var leftytext = "change to lefty"
+    if (isLefty) {
+        leftytext = "change to righty"
     }
     const dispatch = useDispatch()
     return (
@@ -93,6 +98,11 @@ function ControlButtons() {
                     <Button onClick={() => {
                         dispatch({type: "TOGGLE_WHITEBOARD"})
                     }}>{whiteboardtext}</Button>
+                </Col>
+                <Col lg={2}>
+                    <Button onClick={() => {
+                        dispatch({type: "TOGGLE_LEFTY"})
+                    }}>{leftytext}</Button>
                 </Col>
                 <Col sm={2}>
                     <Button onClick={() => {
@@ -120,34 +130,32 @@ function SelfCheckButtons() {
 function ProblemLine(props: any) {
     const showAnswer = useSelector((state: any) => state.showAnswer)
     const showWhiteBoard = useSelector((state: any) => state.showWhiteBoard)
-
-    return (
-        <Row>
+    const isLefty = useSelector((state: any) => state.isLefty)
+    if (!isLefty) {
+        return (
             <Row>
-                <Col>
-                    <ProblemNum num={props.num}/>
-                </Col>
+                <Row>
+                    <Col><ProblemNum num={props.num}/></Col>
+                </Row>
+                <Col lg={2}><Question mathtext={props.mathtext} question={props.question}/></Col>
+                {showWhiteBoard && <Col lg={5}><WhiteBoard/></Col>}
+                <Col lg={4}>{showAnswer && <Answer answer={props.answer}/>}</Col>
+                <Col lg={1}>{showAnswer &&<SelfCheckButtons/>}</Col>
             </Row>
-            <Col lg={2}>
-                <Question mathtext={props.mathtext} question={props.question}/>
-            </Col>
-            {showWhiteBoard &&
-            <Col lg={5}>
-                <WhiteBoard/>
-            </Col>
-            }
-            {showAnswer &&
-            <Col lg={4}>
-                <Answer answer={props.answer}/>
-            </Col>
-            }
-            {showAnswer &&
-            <Col lg={1}>
-                <SelfCheckButtons/>
-            </Col>
-            }
-        </Row>
-    )
+        )
+    }else{
+        return (
+            <Row>
+                <Row>
+                    <Col><ProblemNum num={props.num}/></Col>
+                </Row>
+                <Col lg={1}>{showAnswer &&<SelfCheckButtons/>}</Col>
+                <Col lg={4}>{showAnswer && <Answer answer={props.answer}/>}</Col>
+                {showWhiteBoard && <Col lg={4}><WhiteBoard/></Col>}
+                <Col lg={2}><Question mathtext={props.mathtext} question={props.question}/></Col>
+            </Row>
+        )
+    }
 
 }
 

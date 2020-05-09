@@ -7,11 +7,14 @@ import * as serviceWorker from './serviceWorker';
 import {reducer} from './reducer'
 import {Provider} from "react-redux";
 
-const store = createStore(reducer, {
-    showAnswer: false,
-    showWhiteBoard: true,
-    programs: []
-})
+const store = createStore(reducer,
+    {
+        showAnswer: false,
+        showWhiteBoard: true,
+        isLefty: false,
+        programs: []
+    }
+)
 
 ReactDOM.render(
     <React.StrictMode>
