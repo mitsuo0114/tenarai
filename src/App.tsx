@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {Program, ProgramGenerator} from "./program-generator";
+import {Program} from "./program-generator";
 import {WhiteBoardEventHandler} from "./whiteboard";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -9,9 +9,9 @@ import Col from "react-bootstrap/Col";
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
-
 // Add the Firebase products that you want to use
 import "firebase/analytics";
+import {useDispatch, useSelector} from "react-redux";
 
 function ProblemNum(props: any) {
     // const url = "https://chart.apis.google.com/chart?cht=tx&chl=(" + props.num + ")&chs=30"
@@ -68,31 +68,43 @@ class WhiteBoard extends React.Component {
     }
 }
 
-function ControlButtons(props: any) {
+function ControlButtons() {
+    const showAnswer = useSelector((state: any) => state.showAnswer)
+    const showWhiteBoard = useSelector((state: any) => state.showWhiteBoard)
+
     var anstext = "show all answers"
-    if (props.state.showAnswer) {
+    if (showAnswer) {
         anstext = "hide all answers"
     }
     var whiteboardtext = "disable whiteboards"
-    if (!props.state.showWhiteBoard) {
+    if (!showWhiteBoard) {
         whiteboardtext = "enable whiteboards"
     }
-
+    const dispatch = useDispatch()
     return (
         <Container>
             <Row>
                 <Col sm={2}>
-                    <Button onClick={props.toggleAnswer}>{anstext}</Button>
+                    <Button onClick={() => {
+                        dispatch({type: "TOGGLE_ANSWER"})
+                    }}>{anstext}</Button>
                 </Col>
                 <Col sm={2}>
-                    <Button onClick={props.toggleWhiteBoard}>{whiteboardtext}</Button>
+                    <Button onClick={() => {
+                        dispatch({type: "TOGGLE_WHITEBOARD"})
+                    }}>{whiteboardtext}</Button>
+                </Col>
+                <Col sm={2}>
+                    <Button onClick={() => {
+                        dispatch({type: "CREATE_NEW_PROBLEMS"})
+                    }}>Create new problems</Button>
                 </Col>
             </Row>
         </Container>
     )
 }
 
-function SelfCheckButtons(props: any) {
+function SelfCheckButtons() {
     return (
         <p>
             <p>
@@ -105,101 +117,72 @@ function SelfCheckButtons(props: any) {
     )
 }
 
-class ProblemLine extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
-    }
+function ProblemLine(props: any) {
+    const showAnswer = useSelector((state: any) => state.showAnswer)
+    const showWhiteBoard = useSelector((state: any) => state.showWhiteBoard)
 
-    render() {
-        return (
+    return (
+        <Row>
             <Row>
-                <Row>
-                    <Col>
-                        <ProblemNum num={this.props.num}/>
-                    </Col>
-                </Row>
-                <Col lg={2}>
-                    <Question mathtext={this.props.mathtext} question={this.props.question}/>
+                <Col>
+                    <ProblemNum num={props.num}/>
                 </Col>
-                {this.props.state.showWhiteBoard &&
-                <Col lg={5}>
-                    <WhiteBoard/>
-                </Col>
-                }
-                {this.props.state.showAnswer &&
-                <Col lg={4}>
-                    <Answer answer={this.props.answer}/>
-                </Col>
-                }
-                {this.props.state.showAnswer &&
-                <Col lg={1}>
-                    <SelfCheckButtons/>
-                </Col>
-                }
             </Row>
-        )
+            <Col lg={2}>
+                <Question mathtext={props.mathtext} question={props.question}/>
+            </Col>
+            {showWhiteBoard &&
+            <Col lg={5}>
+                <WhiteBoard/>
+            </Col>
+            }
+            {showAnswer &&
+            <Col lg={4}>
+                <Answer answer={props.answer}/>
+            </Col>
+            }
+            {showAnswer &&
+            <Col lg={1}>
+                <SelfCheckButtons/>
+            </Col>
+            }
+        </Row>
+    )
 
-    }
 }
 
 
-class ProblemTable extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
-    }
+function ProblemTable() {
+    const programs = useSelector((state: any) => state.programs)
 
-    render() {
-        var compiledlines = this.props.state.programs.map((problem: Program,
-                                                           index: number) =>
-            <ProblemLine num={index + 1}
-                         mathtext={problem.mathtext}
-                         question={problem.question}
-                         answer={problem.answer}
-                         state={this.props.state}/>
-        );
-        return (
-            <Container fluid>
-                {compiledlines}
-            </Container>
-        )
-    }
+    var compiledlines = programs.map((problem: Program,
+                                      index: number) =>
+        <ProblemLine num={index + 1}
+                     mathtext={problem.mathtext}
+                     question={problem.question}
+                     answer={problem.answer}/>
+    );
+    return (
+        <Container fluid>
+            {compiledlines}
+        </Container>
+    )
 }
 
-class App extends React.Component<any, any> {
-
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            showAnswer: false,
-            showWhiteBoard: true,
-            programs: ProgramGenerator.generate()
-        }
-    }
-
-    toggleAnswer() {
-        firebase.analytics().logEvent('toggleAnswer');
-        this.setState({showAnswer: !this.state.showAnswer})
-    }
-
-    toggleWhiteBoard() {
-        firebase.analytics().logEvent('toggleWhiteBoard');
-        this.setState({showWhiteBoard: !this.state.showWhiteBoard})
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <ControlButtons state={this.state}
-                                toggleAnswer={this.toggleAnswer.bind(this)}
-                                toggleWhiteBoard={this.toggleWhiteBoard.bind(this)}/>
-                <ProblemTable state={this.state}/>
-                <ControlButtons state={this.state}
-                                toggleAnswer={this.toggleAnswer.bind(this)}
-                                toggleWhiteBoard={this.toggleWhiteBoard.bind(this)}/>
-            </div>
-        );
-    }
+function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({type: "CREATE_NEW_PROBLEMS"})
+    });
+    return (
+        <div className="App">
+            <ControlButtons/>
+            <ProblemTable/>
+            <ControlButtons/>
+        </div>
+    );
 }
+
 const firebaseConfig = {
     apiKey: "AIzaSyBxgSuF8mQzUPxEw6XgJGez638hV3yVnFQ",
     authDomain: "learning-platform-276600.firebaseapp.com",
