@@ -24,4 +24,19 @@ class MathQuestionData extends QuestionData {
 
 }
 
-export {QuestionData, MathQuestionData}
+
+class KanjiQuestionData extends QuestionData {
+    questionpretext: string
+    answertextimage: string
+
+    constructor(questiontext: string,
+                answertext: string,
+                questionpretext: string,
+                answerpretext: string) {
+        super(questiontext, answertext)
+        this.questionpretext = questionpretext;
+        this.answertextimage = answerpretext;
+    }
+
+}
+export {QuestionData, MathQuestionData, KanjiQuestionData}

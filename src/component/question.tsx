@@ -4,11 +4,15 @@ import {WhiteBoardEventHandler} from "./whiteboard";
 
 function Question(props: any) {
     const problem = props.problem
-    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.questionmathtext) + "&chs=30"
+    let url = ""
+    if (problem.questionmathtext){
+        url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.questionmathtext) + "&chs=30"
+    }
     return (
         <p className={"question"}>
-            <pre>{problem.questiontext}</pre>
-            <img src={url} alt={""}/>
+            <p>{problem.questiontext}</p>
+            {url !== "" && <img src={url} alt={""}/>}
+            {problem.questionpretext && <pre>{problem.questionpretext}</pre>}
         </p>
     );
 }
@@ -16,10 +20,15 @@ function Question(props: any) {
 
 function Answer(props: any) {
     const problem = props.problem
-    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.answermathtext) + "&chs=30"
+    let url = ""
+    if (problem.answermathtext){
+        url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.answermathtext) + "&chs=30"
+    }
+    // TODO: change answertextimage to actual image instead of pre
     return (
         <p>
-            <img src={url} alt={""}/>
+            {url && <img src={url} alt={""}/>}
+            {problem.answertextimage && <pre>{problem.answertextimage}</pre>}
         </p>
     );
 }
