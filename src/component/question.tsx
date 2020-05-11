@@ -3,25 +3,20 @@ import Button from "react-bootstrap/Button";
 import {WhiteBoardEventHandler} from "./whiteboard";
 
 function Question(props: any) {
-    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(props.mathtext) + "&chs=30"
+    const problem = props.problem
+    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.questionmathtext) + "&chs=30"
     return (
         <p className={"question"}>
-            <pre>{props.question}</pre>
+            <pre>{problem.questiontext}</pre>
             <img src={url} alt={""}/>
         </p>
     );
 }
 
 
-function ProblemNum(props: any) {
-    return (
-        <p className={"problemnum"}>({props.num})</p>
-    );
-}
-
-
 function Answer(props: any) {
-    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(props.answer) + "&chs=30"
+    const problem = props.problem
+    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.answermathtext) + "&chs=30"
     return (
         <p>
             <img src={url} alt={""}/>
@@ -29,6 +24,13 @@ function Answer(props: any) {
     );
 }
 
+
+
+function ProblemNum(props: any) {
+    return (
+        <p className={"problemnum"}>({props.num})</p>
+    );
+}
 
 function SelfCheckButtons() {
     return (

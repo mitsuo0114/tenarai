@@ -1,19 +1,6 @@
 import {MathQuestionDataGenerator} from "./math/mathQuestionGenerator";
+import {QuestionData} from "./questiondata";
 
-class QuestionData {
-    questiontext: string;
-    questionmathtext: string;
-    answer: string;
-    answermathtext: string;
-
-    constructor(questiontext: string, mathtext: string, answertext: string) {
-        this.questiontext = questiontext;
-        this.questionmathtext = mathtext;
-        this.answer = answertext;
-        this.answermathtext = answertext;
-    }
-
-}
 
 class QuestionDataGenerator {
 
@@ -57,4 +44,4 @@ class QuestionDataGenerator {
 
 }
 
-export {QuestionData, QuestionDataGenerator}
+export {QuestionDataGenerator}

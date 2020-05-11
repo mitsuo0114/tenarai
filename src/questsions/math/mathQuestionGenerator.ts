@@ -1,4 +1,5 @@
-import {QuestionData} from "../questiondata-generator"
+import {MathQuestionData} from "../questiondata"
+
 
 class MathQuestionDataGenerator {
     static getRandomInt(max: number) {
@@ -14,31 +15,32 @@ class MathQuestionDataGenerator {
     }
 
 
-    static generate_basic_plus(): QuestionData {
+    static generate_basic_plus(): MathQuestionData {
         var a = MathQuestionDataGenerator.getRandomInt(10);
         var b = MathQuestionDataGenerator.getRandomInt(10);
-        return new QuestionData("計算せよ", String(a) + "+" + String(b), String(a + b))
+        return new MathQuestionData("計算せよ", "",
+            String(a) + "+" + String(b), String(a + b))
     }
 
-    static generate_basic_minus(): QuestionData {
+    static generate_basic_minus(): MathQuestionData {
         var a = MathQuestionDataGenerator.getRandomInt(10);
         var b = MathQuestionDataGenerator.getRandomInt(10);
-        return new QuestionData("計算せよ",String(a) + "-" + String(b), String(a - b))
+        return new MathQuestionData("計算せよ", "",String(a) + "-" + String(b), String(a - b))
     }
 
-    static generate_basic_mul(): QuestionData {
+    static generate_basic_mul(): MathQuestionData {
         var a = MathQuestionDataGenerator.getRandomInt(10);
         var b = MathQuestionDataGenerator.getRandomInt(10);
-        return new QuestionData("計算せよ",String(a) + "\\times" + String(b), String(a * b))
+        return new MathQuestionData("計算せよ", "",String(a) + "\\times" + String(b), String(a * b))
     }
 
-    static generate_basic_div(): QuestionData {
+    static generate_basic_div(): MathQuestionData {
         var a = MathQuestionDataGenerator.getRandomInt(9);
         var b = MathQuestionDataGenerator.getRandomInt(9);
         a += 1
         b += 1
         var k = a * b
-        return new QuestionData("計算せよ",String(k) + "\\div" + String(b), String(a))
+        return new MathQuestionData("計算せよ", "",String(k) + "\\div" + String(b), String(a))
     }
 
     static _quadraticequation_text(a: number, b: number, c: number) {
@@ -92,7 +94,7 @@ class MathQuestionDataGenerator {
 
     }
 
-    static generate_basic_quadraticequation(): QuestionData {
+    static generate_basic_quadraticequation(): MathQuestionData {
         var x1 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
         var x2 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
         var b = x1 + x2
@@ -106,19 +108,20 @@ class MathQuestionDataGenerator {
             answer += ", " + String(-x2)
         }
 
-        return new QuestionData(
+        return new MathQuestionData(
             "次の方程式を解け",
+            "",
             text,
             answer
         )
 
     }
 
-    static generate_basic_quadraticequation_extract(): QuestionData {
+    static generate_basic_quadraticequation_extract(): MathQuestionData {
         var x1 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
-        var x2 = MathQuestionDataGenerator.getRandomRange(-9, 9,[0]);
-        var x3 = MathQuestionDataGenerator.getRandomRange(-9, 9,[0]);
-        var x4 = MathQuestionDataGenerator.getRandomRange(-9, 9,[0]);
+        var x2 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
+        var x3 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
+        var x4 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
 
         var text = "(" + MathQuestionDataGenerator._linerequation_text(x1, x2) + ")"
         text += "(" + MathQuestionDataGenerator._linerequation_text(x3, x4) + ")"
@@ -126,16 +129,18 @@ class MathQuestionDataGenerator {
         var a = (x1 * x3)
         var b = (x1 * x4 + x2 * x3)
         var c = (x2 * x4)
-        return new QuestionData("展開せよ",
+        return new MathQuestionData("展開せよ",
+            "",
             text,
             MathQuestionDataGenerator._quadraticequation_text(a, b, c))
 
     }
 
-    static generate_basic_sin(): QuestionData {
+    static generate_basic_sin(): MathQuestionData {
         var text = "sin 30^{o}"
         var ans = "\\frac{1}{2}"
-        return new QuestionData("単位円上での値を書け",
+        return new MathQuestionData("単位円上での値を書け",
+            "",
             text,
             ans
         )

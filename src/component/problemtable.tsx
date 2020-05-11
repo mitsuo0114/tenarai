@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Answer, ProblemNum, Question, SelfCheckButtons, WhiteBoard} from "./question";
-import {QuestionData} from "../questsions/questiondata-generator";
+import {QuestionData} from "../questsions/questiondata";
 import Container from "react-bootstrap/Container";
 import React from "react";
 
@@ -42,8 +42,8 @@ function ProblemTable() {
                                       index: number) =>
         <ProblemLine
             problemnum={<Row><Col><ProblemNum num={index + 1}/></Col></Row>}
-            question={<Question mathtext={problem.questionmathtext} question={problem.questiontext}/>}
-            answer={<Answer answer={problem.answermathtext}/>}
+            question={<Question problem={problem}/>}
+            answer={<Answer problem={problem}/>}
         />
     );
     return (
