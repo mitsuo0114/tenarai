@@ -9,10 +9,6 @@ class QuestionDataGenerator {
         const ret = [
             KanjiQuestionDataGenerator.generate_basic(),
             KanjiQuestionDataGenerator.generate_basic(),
-            KanjiQuestionDataGenerator.generate_basic(),
-            KanjiQuestionDataGenerator.generate_basic(),
-            KanjiQuestionDataGenerator.generate_basic(),
-            KanjiQuestionDataGenerator.generate_basic(),
             MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
             MathQuestionDataGenerator.generate_basic_quadraticequation(),
             MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
