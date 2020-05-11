@@ -1,5 +1,5 @@
 import * as firebase from "firebase";
-import {ProgramGenerator} from "./program-generator";
+import {QuestionDataGenerator} from "./questsions/questiondata-generator";
 
 function reducer(state: any, action: any): any {
     firebase.analytics().logEvent(action.type);
@@ -11,7 +11,7 @@ function reducer(state: any, action: any): any {
     } else if (action.type === "TOGGLE_LEFTY") {
         return {...state, isLefty: !state.isLefty}
     } else if (action.type === "CREATE_NEW_PROBLEMS") {
-        return {...state, programs: ProgramGenerator.generate()}
+        return {...state, programs: QuestionDataGenerator.generate()}
     }
 
     return state

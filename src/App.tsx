@@ -1,181 +1,13 @@
 import React, {useEffect} from 'react';
-import './App.css';
-import {Program} from "./program-generator";
-import {WhiteBoardEventHandler} from "./whiteboard";
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-// Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
-// Add the Firebase products that you want to use
 import "firebase/analytics";
-import {useDispatch, useSelector} from "react-redux";
 
-function ProblemNum(props: any) {
-    // const url = "https://chart.apis.google.com/chart?cht=tx&chl=(" + props.num + ")&chs=30"
-    return (
-        <p className={"problemnum"}>({props.num})
-            {/*<img src={url}/>*/}
-        </p>
-    );
-}
-
-function Question(props: any) {
-    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(props.mathtext) + "&chs=30"
-    return (
-        <p className={"question"}>
-            <pre>{props.question}</pre>
-            <img src={url}/>
-        </p>
-    );
-}
-
-function Answer(props: any) {
-    const url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(props.answer) + "&chs=30"
-    return (
-        <p>
-            <img src={url}/>
-        </p>
-    );
-}
-
-class WhiteBoard extends React.Component {
-    myRef: any
-    handler: any
-
-    constructor(props: any) {
-        super(props)
-        this.myRef = React.createRef();
-        this.handler = new WhiteBoardEventHandler(this.myRef)
-    }
-
-    componentDidMount() {
-        this.handler.init()
-    }
-
-    render() {
-        // because of passive property issue, I cannot setup touch event here.
-        // https://github.com/facebook/react/issues/6436
-        return (
-            <canvas ref={this.myRef}
-                    onMouseDown={(event) => this.handler.onMouseDown(event)}
-                    onMouseMove={(event) => this.handler.onMouseMove(event)}
-                    onMouseUp={(event) => this.handler.onMouseUp(event)}
-                    className="canvas" width="400%" height="200px"/>
-        )
-    }
-}
-
-function ControlButtons() {
-    const showAnswer = useSelector((state: any) => state.showAnswer)
-    const showWhiteBoard = useSelector((state: any) => state.showWhiteBoard)
-    const isLefty = useSelector((state: any) => state.isLefty)
-
-    var anstext = "show all answers"
-    if (showAnswer) {
-        anstext = "hide all answers"
-    }
-    var whiteboardtext = "disable whiteboards"
-    if (!showWhiteBoard) {
-        whiteboardtext = "enable whiteboards"
-    }
-    var leftytext = "change to lefty"
-    if (isLefty) {
-        leftytext = "change to righty"
-    }
-    const dispatch = useDispatch()
-    return (
-        <Container>
-            <Row>
-                <Col sm={2}>
-                    <Button onClick={() => {
-                        dispatch({type: "TOGGLE_ANSWER"})
-                    }}>{anstext}</Button>
-                </Col>
-                <Col sm={2}>
-                    <Button onClick={() => {
-                        dispatch({type: "TOGGLE_WHITEBOARD"})
-                    }}>{whiteboardtext}</Button>
-                </Col>
-                <Col lg={2}>
-                    <Button onClick={() => {
-                        dispatch({type: "TOGGLE_LEFTY"})
-                    }}>{leftytext}</Button>
-                </Col>
-                <Col sm={2}>
-                    <Button onClick={() => {
-                        dispatch({type: "CREATE_NEW_PROBLEMS"})
-                    }}>Create new problems</Button>
-                </Col>
-            </Row>
-        </Container>
-    )
-}
-
-function SelfCheckButtons() {
-    return (
-        <p>
-            <p>
-                <Button id="can" variant="success">OK</Button>
-            </p>
-            <p>
-                <Button id="can" variant="danger">NG</Button>
-            </p>
-        </p>
-    )
-}
-
-function ProblemLine(props: any) {
-    const showAnswer = useSelector((state: any) => state.showAnswer)
-    const showWhiteBoard = useSelector((state: any) => state.showWhiteBoard)
-    const isLefty = useSelector((state: any) => state.isLefty)
-    if (!isLefty) {
-        return (
-            <Row>
-                <Row>
-                    <Col><ProblemNum num={props.num}/></Col>
-                </Row>
-                <Col lg={2}><Question mathtext={props.mathtext} question={props.question}/></Col>
-                {showWhiteBoard && <Col lg={5}><WhiteBoard/></Col>}
-                <Col lg={4}>{showAnswer && <Answer answer={props.answer}/>}</Col>
-                <Col lg={1}>{showAnswer &&<SelfCheckButtons/>}</Col>
-            </Row>
-        )
-    }else{
-        return (
-            <Row>
-                <Row>
-                    <Col><ProblemNum num={props.num}/></Col>
-                </Row>
-                <Col lg={1}>{showAnswer &&<SelfCheckButtons/>}</Col>
-                <Col lg={4}>{showAnswer && <Answer answer={props.answer}/>}</Col>
-                {showWhiteBoard && <Col lg={4}><WhiteBoard/></Col>}
-                <Col lg={2}><Question mathtext={props.mathtext} question={props.question}/></Col>
-            </Row>
-        )
-    }
-
-}
-
-
-function ProblemTable() {
-    const programs = useSelector((state: any) => state.programs)
-
-    var compiledlines = programs.map((problem: Program,
-                                      index: number) =>
-        <ProblemLine num={index + 1}
-                     mathtext={problem.mathtext}
-                     question={problem.question}
-                     answer={problem.answer}/>
-    );
-    return (
-        <Container fluid>
-            {compiledlines}
-        </Container>
-    )
-}
+import './App.css';
+import {useDispatch} from "react-redux";
+import {ProblemTable} from './component/problemtable'
+import {ControlButtons} from './component/header'
 
 function App() {
     const dispatch = useDispatch();
@@ -185,7 +17,7 @@ function App() {
     return (
         <div className="App">
             <ControlButtons/>
-            <ProblemTable/>
+                <ProblemTable/>
             <ControlButtons/>
         </div>
     );

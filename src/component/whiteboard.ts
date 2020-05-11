@@ -1,5 +1,3 @@
-import React from "react";
-
 class WhiteBoardEventHandler {
     can: any
     ct: any
