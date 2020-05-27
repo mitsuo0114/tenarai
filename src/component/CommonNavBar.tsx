@@ -7,7 +7,7 @@ function CommonNavBar() {
     return (
         <Navbar bg="dark" variant="dark">
             <span id={"leftnav-toggle-botton"} onClick={() =>
-                {dispatch({type: "TOGGLE_LEFTNAVI"})}
+                {dispatch({type: "TOGGLE_LEFTNAV"})}
             }>☰</span>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>

@@ -27,6 +27,7 @@ const store = createStore(reducer,
     {
         showAnswer: false,
         showWhiteBoard: true,
+        showLeftnav: true,
         isLefty: false,
         programs: []
     }

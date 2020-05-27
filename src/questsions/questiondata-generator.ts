@@ -5,46 +5,75 @@ import {KanjiQuestionDataGenerator} from "./kanji/kanjiQuestionGenerator";
 
 class QuestionDataGenerator {
 
-    static generate(): Array<QuestionData> {
-        const ret = [
-            KanjiQuestionDataGenerator.generate_basic(),
-            KanjiQuestionDataGenerator.generate_basic(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            MathQuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_plus(),
-            // QuestionDataGenerator.generate_basic_plus(),
-            // QuestionDataGenerator.generate_basic_minus(),
-            // QuestionDataGenerator.generate_basic_minus(),
-            // QuestionDataGenerator.generate_basic_mul(),
-            // QuestionDataGenerator.generate_basic_mul(),
-            // QuestionDataGenerator.generate_basic_div(),
-            // QuestionDataGenerator.generate_basic_div(),
-            // QuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            // QuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            // QuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            // QuestionDataGenerator.generate_basic_quadraticequation_extract(),
-            // QuestionDataGenerator.generate_basic_sin(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-            // QuestionDataGenerator.generate_basic_quadraticequation(),
-        ];
-        return ret;
+    static generate(problem_type: any): Array<QuestionData> {
+        console.log(problem_type)
+        if (problem_type) {
+            if (problem_type.class === "math") {
+                const g = MathQuestionDataGenerator;
+                if (problem_type.subclass === "add_sub") {
+                    return [
+                        g.generate_basic_plus(),
+                        g.generate_basic_minus(),
+                        g.generate_basic_plus(),
+                        g.generate_basic_minus(),
+                        g.generate_basic_plus(),
+                        g.generate_basic_minus(),
+                        g.generate_basic_plus(),
+                        g.generate_basic_minus(),
+                        g.generate_basic_plus(),
+                        g.generate_basic_minus(),
+                    ]
+                } else if (problem_type.subclass === "mul_div") {
+                    return [
+                        g.generate_basic_mul(),
+                        g.generate_basic_div(),
+                        g.generate_basic_mul(),
+                        g.generate_basic_div(),
+                        g.generate_basic_mul(),
+                        g.generate_basic_div(),
+                        g.generate_basic_mul(),
+                        g.generate_basic_div(),
+                        g.generate_basic_mul(),
+                        g.generate_basic_div(),
+                    ]
+                } else if (problem_type.subclass === "factorization") {
+                    return [
+                        g.generate_basic_quadraticequation_extract(),
+                        g.generate_basic_quadraticequation(),
+                        g.generate_basic_quadraticequation_extract(),
+                        g.generate_basic_quadraticequation(),
+                        g.generate_basic_quadraticequation_extract(),
+                        g.generate_basic_quadraticequation(),
+                        g.generate_basic_quadraticequation_extract(),
+                        g.generate_basic_quadraticequation(),
+                        g.generate_basic_quadraticequation_extract(),
+                        g.generate_basic_quadraticequation(),
+                    ]
+                }
+            } else if (problem_type.class === "kanji") {
+                if (problem_type.subclass === "samples") {
+                    return [
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                        KanjiQuestionDataGenerator.generate_basic(),
+                    ]
+                }
+            }
+        }
+        return []
+
+        // QuestionDataGenerator.generate_basic_sin(),
     }
 
 }
 
-export {QuestionDataGenerator}
+export {
+    QuestionDataGenerator
+}

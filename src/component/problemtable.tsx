@@ -22,7 +22,7 @@ function ProblemLine(props: any) {
         )
     } else {
         return (
-            <Row>
+            <Row key={props.problemnum}>
                 {props.problemnum}
                 <Col lg={1}>{showAnswer && <SelfCheckButtons/>}</Col>
                 <Col lg={4}>{showAnswer && props.answer}</Col>

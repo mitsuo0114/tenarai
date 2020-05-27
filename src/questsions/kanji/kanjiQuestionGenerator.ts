@@ -17,7 +17,6 @@ class KanjiQuestionDataGenerator {
 
     static generate_basic(): KanjiQuestionData {
         const questionSet = kanjidata.kanjidata
-        console.log(questionSet.length)
         const i = KanjiQuestionDataGenerator.getRandomRange(0, questionSet.length, [])
 
         return new KanjiQuestionData("カタカナを漢字に直せ", "",

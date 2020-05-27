@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {ProblemTable} from './component/problemtable'
 import {ControlButtons} from './component/header'
 import {CommonNavBar} from "./component/CommonNavBar";
-import {CommonLeftNavBar} from "./component/CommonLeftNavBar";
+import {ProblemLeftNavBar} from "./component/ProblemLeftNavBar";
 
 function App() {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function App() {
     return (
         <div className="App">
             <CommonNavBar/>
-            <CommonLeftNavBar/>
+            <ProblemLeftNavBar/>
             <ControlButtons/>
                 <ProblemTable/>
             <ControlButtons/>
