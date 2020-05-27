@@ -31,7 +31,7 @@ function ControlButtons() {
                         dispatch({type: "TOGGLE_ANSWER"})
                     }}>{anstext}</Button>
                 </Col>
-                <Col sm={2}>
+                <Col sm={3}>
                     <Button onClick={() => {
                         dispatch({type: "TOGGLE_WHITEBOARD"})
                     }}>{whiteboardtext}</Button>
@@ -41,7 +41,7 @@ function ControlButtons() {
                         dispatch({type: "TOGGLE_LEFTY"})
                     }}>{leftytext}</Button>
                 </Col>
-                <Col sm={2}>
+                <Col sm={3}>
                     <Button onClick={() => {
                         dispatch({type: "CREATE_NEW_PROBLEMS"})
                     }}>Create new problems</Button>

@@ -15,7 +15,7 @@ function ProblemLine(props: any) {
             <Row>
                 {props.problemnum}
                 <Col lg={2}> {props.question}</Col>
-                {showWhiteBoard && <Col lg={5}><WhiteBoard/></Col>}
+                {showWhiteBoard && <Col lg={4}><WhiteBoard/></Col>}
                 <Col lg={4}>{showAnswer && props.answer}</Col>
                 <Col lg={1}>{showAnswer && <SelfCheckButtons/>}</Col>
             </Row>
