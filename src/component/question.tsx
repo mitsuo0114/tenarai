@@ -5,7 +5,7 @@ import {WhiteBoardEventHandler} from "./whiteboard";
 function Question(props: any) {
     const problem = props.problem
     let url = ""
-    if (problem.questionmathtext){
+    if (problem.questionmathtext) {
         url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.questionmathtext) + "&chs=30"
     }
     return (
@@ -15,13 +15,16 @@ function Question(props: any) {
             {problem.questionpretext && <pre>{problem.questionpretext}</pre>}
         </p>
     );
+    return (
+        <div> {"\\(ax+b=0\\) \\[ x = -\\frac{b}{a} \\]"}</div>
+    )
 }
 
 
 function Answer(props: any) {
     const problem = props.problem
     let url = ""
-    if (problem.answermathtext){
+    if (problem.answermathtext) {
         url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.answermathtext) + "&chs=30"
     }
     // TODO: change answertextimage to actual image instead of pre
@@ -32,7 +35,6 @@ function Answer(props: any) {
         </p>
     );
 }
-
 
 
 function ProblemNum(props: any) {

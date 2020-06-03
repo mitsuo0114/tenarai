@@ -10,6 +10,7 @@ import {reducer} from './reducer'
 import {Provider} from "react-redux";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
+import ScriptTag from "./component/ScriptTag";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBxgSuF8mQzUPxEw6XgJGez638hV3yVnFQ",
@@ -32,7 +33,6 @@ const store = createStore(reducer,
         programs: []
     }
 )
-
 ReactDOM.render(
     <React.StrictMode>
         <link
@@ -41,6 +41,7 @@ ReactDOM.render(
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossOrigin="anonymous"
         />
+        <ScriptTag src={"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML"} />
         <Provider store={store}>
             <BrowserRouter>
                 <Switch>

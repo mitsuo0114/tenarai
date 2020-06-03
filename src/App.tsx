@@ -6,6 +6,7 @@ import {ProblemTable} from './component/problemtable'
 import {ControlButtons} from './component/header'
 import {CommonNavBar} from "./component/CommonNavBar";
 import {ProblemLeftNavBar} from "./component/ProblemLeftNavBar";
+import ScriptTag from "./component/ScriptTag";
 
 function App() {
     const dispatch = useDispatch();
