@@ -66,7 +66,14 @@ class QuestionDataGenerator {
                     return [
                         g.generate_basic_permutation(),
                         g.generate_basic_combination(),
-                        g.generate_basic_factorial()
+                        g.generate_basic_factorial(),
+                        g.generate_basic_permutation(),
+                        g.generate_basic_combination(),
+                        g.generate_basic_factorial(),
+                        g.generate_basic_permutation(),
+                        g.generate_basic_combination(),
+                        g.generate_basic_factorial(),
+                        g.generate_basic_combination()
                     ]
                 }
             } else if (problem_type.class === "kanji") {
