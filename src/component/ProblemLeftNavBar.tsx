@@ -10,6 +10,7 @@ function ProblemLeftNavBar() {
         {title: "足し算・引き算", problem_type : {"class": "math", "subclass": "add_sub"}},
         {title: "かけ算・わり算", problem_type : {"class": "math", "subclass": "mul_div"}},
         {title: "因数分解", problem_type : {"class": "math", "subclass": "factorization"}},
+        {title: "行列計算", problem_type : {"class": "math", "subclass": "matrix"}},
         {title: "漢字", problem_type : {"class": "kanji", "subclass": "samples"}},
     ]
 

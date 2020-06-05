@@ -24,4 +24,6 @@ code {
   border:solid 1px;
 }
 
-
+.MathJax {
+  font-size: 3em;
+}

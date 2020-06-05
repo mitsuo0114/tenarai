@@ -1,36 +1,25 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import {WhiteBoardEventHandler} from "./whiteboard";
+import { MathComponent } from 'mathjax-react'
 
 function Question(props: any) {
     const problem = props.problem
-    let url = ""
-    if (problem.questionmathtext) {
-        url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.questionmathtext) + "&chs=30"
-    }
     return (
         <p className={"question"}>
             <p>{problem.questiontext}</p>
-            {url !== "" && <img src={url} alt={""}/>}
+            {problem.questionmathtext !== "" && <MathComponent tex={problem.questionmathtext} />}
             {problem.questionpretext && <pre>{problem.questionpretext}</pre>}
         </p>
     );
-    return (
-        <div> {"\\(ax+b=0\\) \\[ x = -\\frac{b}{a} \\]"}</div>
-    )
 }
 
 
 function Answer(props: any) {
     const problem = props.problem
-    let url = ""
-    if (problem.answermathtext) {
-        url = "https://chart.apis.google.com/chart?cht=tx&chl=" + encodeURIComponent(problem.answermathtext) + "&chs=30"
-    }
-    // TODO: change answertextimage to actual image instead of pre
     return (
         <p>
-            {url && <img src={url} alt={""}/>}
+            {problem.answermathtext && <MathComponent tex={problem.answermathtext} />}
             {problem.answertextimage && <pre>{problem.answertextimage}</pre>}
         </p>
     );

@@ -49,6 +49,19 @@ class QuestionDataGenerator {
                         g.generate_basic_quadraticequation_extract(),
                         g.generate_basic_quadraticequation(),
                     ]
+                } else if (problem_type.subclass === "matrix") {
+                    return [
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                        g.generate_basic_matrix(),
+                    ]
                 }
             } else if (problem_type.class === "kanji") {
                 if (problem_type.subclass === "samples") {
