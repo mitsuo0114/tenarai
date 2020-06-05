@@ -12,7 +12,7 @@ function ProblemLeftNavBar() {
         {title: "因数分解", problem_type : {"class": "math", "subclass": "factorization"}},
         {title: "行列計算", problem_type : {"class": "math", "subclass": "matrix"}},
         {title: "順列・組合せ", problem_type : {"class": "math", "subclass": "perm_combi"}},
-        {title: "漢字", problem_type : {"class": "kanji", "subclass": "samples"}},
+        // {title: "漢字", problem_type : {"class": "kanji", "subclass": "samples"}},
     ]
 
     const problem_menus = problems.map((problem : any, index) =>
