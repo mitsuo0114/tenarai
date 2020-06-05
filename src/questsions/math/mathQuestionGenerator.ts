@@ -143,6 +143,49 @@ class MathQuestionDataGenerator {
             ans_matrix)
     }
 
+    static generate_basic_permutation(): MathQuestionData {
+        var n = MathQuestionDataGenerator.getRandomRange(1, 10, []);
+        var k = MathQuestionDataGenerator.getRandomRange(1, n, []);
+        let ans = 1
+        for (let i = n - k + 1; i <= n; i++) {
+            ans *= i
+        }
+        return new MathQuestionData("計算せよ",
+            "",
+            "{}_" + String(n) + "\\mathrm{ P }_" + String(k),
+            String(ans) + "")
+
+    }
+
+    static generate_basic_combination(): MathQuestionData {
+        var n = MathQuestionDataGenerator.getRandomRange(1, 10, []);
+        var k = MathQuestionDataGenerator.getRandomRange(1, n, []);
+        let ans = 1
+        for (let i = n - k + 1; i <= n; i++) {
+            ans *= i
+        }
+        for (let i = 1; i <= k; i++) {
+            ans /= i
+        }
+        return new MathQuestionData("計算せよ",
+            "",
+            "{}_" + String(n) + "\\mathrm{ C }_" + String(k),
+            String(ans) + "")
+    }
+
+    static generate_basic_factorial(): MathQuestionData {
+        var n = MathQuestionDataGenerator.getRandomRange(1, 5, []);
+        let ans = 1
+        for (let i = 1; i <= n; i++) {
+            ans *= i
+        }
+        return new MathQuestionData("計算せよ",
+            "",
+            String(n) + "!",
+            String(ans) + ""
+        )
+    }
+
     static generate_basic_quadraticequation_extract(): MathQuestionData {
         var x1 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);
         var x2 = MathQuestionDataGenerator.getRandomRange(-9, 9, [0]);

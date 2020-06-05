@@ -62,6 +62,12 @@ class QuestionDataGenerator {
                         g.generate_basic_matrix(),
                         g.generate_basic_matrix(),
                     ]
+                } else if(problem_type.subclass === "perm_combi"){
+                    return [
+                        g.generate_basic_permutation(),
+                        g.generate_basic_combination(),
+                        g.generate_basic_factorial()
+                    ]
                 }
             } else if (problem_type.class === "kanji") {
                 if (problem_type.subclass === "samples") {
